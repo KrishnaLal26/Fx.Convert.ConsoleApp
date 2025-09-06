@@ -23,18 +23,25 @@ namespace Fx.Convert.Infrastructure.Providers.LiveExchangeRateProvider
 
         public async Task<decimal?> GetExchangeRateAsync(string from, string to)
         {
-            var httpClient = _httpClientFactory.CreateClient(nameof(LiveExchangeRateProvider));
-            var url = _apiConfig.Value.GetRateEndpoint.InjectParamValues(
-                ("apiKey", _apiConfig.Value.ApiKey),
-                ("currency", from));
-            var result = await httpClient.GetAsync<ExchangeRateResponseModel>(url);
-            if(!result.IsSuccessStatusCode || result?.Data?.ConversionRates == null)
+            try
+            {
+                var httpClient = _httpClientFactory.CreateClient(nameof(LiveExchangeRateProvider));
+                var url = _apiConfig.Value.GetRateEndpoint.InjectParamValues(
+                    ("apiKey", _apiConfig.Value.ApiKey),
+                    ("currency", from));
+                var result = await httpClient.GetAsync<ExchangeRateResponseModel>(url);
+                if (!result.IsSuccessStatusCode || result?.Data?.ConversionRates == null)
+                {
+                    return null;
+                }
+
+                result.Data.ConversionRates.TryGetValue(to, out decimal rate);
+                return rate;
+            }
+            catch
             {
                 return null;
             }
-
-            result.Data.ConversionRates.TryGetValue(to, out decimal rate);
-            return rate;
         }
     }
 }
