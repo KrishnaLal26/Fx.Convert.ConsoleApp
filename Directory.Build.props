@@ -1,0 +1,6 @@
+<Project>
+	<Import Project = "dependencies.props" />
+	<PropertyGroup>
+		<AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
+	</PropertyGroup>
+</Project>
