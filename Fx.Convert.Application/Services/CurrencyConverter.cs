@@ -1,4 +1,5 @@
 ﻿using Fx.Convert.Application.Services.Abstractions;
+using Fx.Convert.Framework;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -19,7 +20,7 @@ namespace Fx.Convert.Application.Services
             var rate = result.GetValueOrDefault();
             if(rate == 0)
             {
-                throw new InvalidDataException($"Supplied {from}/{to} exchange rate is missing.");
+                throw new InvalidDataException(ErrorMessages.MissingRate(from, to));
             }
             return amount * rate;
         }

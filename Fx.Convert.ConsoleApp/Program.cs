@@ -1,59 +1,62 @@
 ﻿using Fx.Convert.Application.Services.Abstractions;
 using Fx.Convert.Application.Validators;
-using Fx.Convert.ConsoleApp;
+using Fx.Convert.Framework;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO;
 
-class Program
+namespace Fx.Convert.ConsoleApp
 {
-    static void Main(string[] args)
+    public class Program
     {
-        // Setup configuration
-        var configuration = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", optional: false)
-            .Build();
-
-        // Setup DI
-        var services = ServiceRegistry.RegisterServices(configuration);
-        var serviceProvider = services.BuildServiceProvider();
-
-        // Start application
-        Console.WriteLine("Exchange");
-        Console.WriteLine("Usage: Exchange <currency pair> <amount to exchange>");
-        Console.WriteLine("Type 'exit' to quit.");
-        StartProcessing(serviceProvider);
-    }
-
-    private static void StartProcessing(IServiceProvider serviceProvider)
-    {
-        var currencyService = serviceProvider.GetRequiredService<ICurrencyService>();
-        while (true)
+        static void Main(string[] args)
         {
-            string input = Console.ReadLine();
-            if (input.Trim().Equals("exit", StringComparison.OrdinalIgnoreCase))
-            {
-                Console.WriteLine("Goodbye!");
-                break;
-            }
+            // Setup configuration
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false)
+                .Build();
 
-            if (new CommandValidator().Validate(input, out string fromCurrency, out string toCurrency, out decimal amount, out string errorMessage))
+            // Setup DI
+            var services = ServiceRegistry.RegisterServices(configuration);
+            var serviceProvider = services.BuildServiceProvider();
+
+            // Start application
+            Console.WriteLine(CommandMessages.StartCommand);
+            Console.WriteLine(CommandMessages.InputFormatCommand);
+            Console.WriteLine(CommandMessages.ExitFormatCommand);
+            StartProcessing(serviceProvider);
+        }
+
+        private static void StartProcessing(IServiceProvider serviceProvider)
+        {
+            var currencyService = serviceProvider.GetRequiredService<ICurrencyService>();
+            while (true)
             {
-                try
+                string input = Console.ReadLine();
+                if (input.Trim().Equals(CommandMessages.ExitCommand, StringComparison.OrdinalIgnoreCase))
                 {
-                    decimal result = currencyService.ConvertCurrency(fromCurrency, toCurrency, amount).GetAwaiter().GetResult();
-                    Console.WriteLine(result);
+                    Console.WriteLine(CommandMessages.ClosingMessage);
+                    break;
                 }
-                catch (Exception ex)
+
+                if (new CommandValidator().Validate(input, out string fromCurrency, out string toCurrency, out decimal amount, out string errorMessage))
                 {
-                    Console.WriteLine($"Unknown Error: {ex.Message}");
+                    try
+                    {
+                        decimal result = currencyService.ConvertCurrency(fromCurrency, toCurrency, amount).GetAwaiter().GetResult();
+                        Console.WriteLine(result);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
                 }
-            }
-            else
-            {
-                Console.WriteLine(errorMessage);
+                else
+                {
+                    Console.WriteLine(errorMessage);
+                }
             }
         }
     }

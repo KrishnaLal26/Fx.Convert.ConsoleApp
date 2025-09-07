@@ -8,6 +8,7 @@
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" />
 	</ItemGroup>
 	<ItemGroup>
+		<ProjectReference Include="..\Fx.Convert.Framework\Fx.Convert.Framework.csproj" />
 		<ProjectReference Include="..\Fx.Convert.Infrastructure\Fx.Convert.Infrastructure.csproj" />
 	</ItemGroup>
 

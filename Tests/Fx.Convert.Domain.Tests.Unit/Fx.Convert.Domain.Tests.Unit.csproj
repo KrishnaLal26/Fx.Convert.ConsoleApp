@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Fx.Convert.ConsoleApp\Fx.Convert.ConsoleApp.csproj" />
+    <ProjectReference Include="..\..\Fx.Convert.Domain\Fx.Convert.Domain.csproj" />
     <ProjectReference Include="..\Fx.Convert.Tests.Framework\Fx.Convert.Tests.Framework.csproj" />
   </ItemGroup>
 

@@ -35,7 +35,7 @@ namespace Fx.Convert.Infrastructure.Providers.LiveExchangeRateProvider
                     return null;
                 }
 
-                result.Data.ConversionRates.TryGetValue(to, out decimal rate);
+                result.Data.ConversionRates.TryGetValue(to.ToUpper(), out decimal rate);
                 return rate;
             }
             catch

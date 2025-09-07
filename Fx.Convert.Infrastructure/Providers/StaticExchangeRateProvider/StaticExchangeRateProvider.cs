@@ -21,7 +21,8 @@ namespace Fx.Convert.Infrastructure.Providers.StaticExchangeRateProvider
 
         public Task<decimal?> GetExchangeRateAsync(string from, string to)
         {
-            return Task.FromResult(_config.Value.FirstOrDefault(rate => rate.From.Equals(from) && rate.To.Equals(to))?.Rate);
+            return Task.FromResult(_config.Value.FirstOrDefault(rate => rate.From.Equals(from, StringComparison.OrdinalIgnoreCase)
+            && rate.To.Equals(to, StringComparison.OrdinalIgnoreCase))?.Rate);
         }
     }
 }
