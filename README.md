@@ -1,6 +1,6 @@
 # 💱 Fx.Convert – Foreign Exchange Conversion System (.NET 8, Clean Architecture)
 
-Welcome to **Fx.Convert**, a modular FX conversion system built with **.NET 8** and structured using **Clean Architecture**. This project demonstrates how to model currency exchange logic in a clean, extensible way, and is designed to support technical interviews by showcasing thoughtful design, domain modeling, and fallback strategies.
+Welcome to **Fx.Convert**, a modular FX conversion system built with **.NET 8** and structured using **Clean Architecture**. This project demonstrates how to model currency exchange logic in a clean, extensible way, and is designed to support technical demos by showcasing thoughtful design, domain modeling, and fallback strategies.
 
 ---
 
