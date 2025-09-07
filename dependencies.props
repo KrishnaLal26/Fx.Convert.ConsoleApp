@@ -2,11 +2,5 @@
 	<PropertyGroup Label = "SDK Versions">
 		<DotNetTargetVersion>net8.0</DotNetTargetVersion>
 		<LanguageVersion>latest</LanguageVersion>
-		<DependencyInjectionVersion>8.0.0</DependencyInjectionVersion>
-		<ConfigurationVersion>8.0.0</ConfigurationVersion>
-		<ConfigurationJsonVersion>8.0.0</ConfigurationJsonVersion>
-		<ConfigurationFileExtensionsVersion>8.0.0</ConfigurationFileExtensionsVersion>
-		<HttpExtensionVersion>8.0.0</HttpExtensionVersion>
-		<ConfigurationOptionsVersion>8.0.0</ConfigurationOptionsVersion>
 	</PropertyGroup>
 </Project>
